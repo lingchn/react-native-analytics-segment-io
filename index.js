@@ -3,45 +3,45 @@ import { NativeModules } from 'react-native'
 const RNASegmentIO = NativeModules.RNASegmentIO || NativeModules.SegmentModule
 
 export default {
-  setup: function (key, options = {}) {
+  setup(key, options = {}) {
     return RNASegmentIO.setup(key, options)
   },
 
-  identify: function (userId, traits = {}) {
+  identify(userId, traits = {}) {
     RNASegmentIO.identify(userId, traits)
   },
 
-  track: function (event, properties = {}) {
+  track(event, properties = {}) {
     RNASegmentIO.track(event, properties)
   },
 
-  screen: function (name, properties = {}) {
+  screen(name, properties = {}) {
     RNASegmentIO.screen(name, properties)
   },
 
-  group: function (groupId, traits = {}) {
+  group(groupId, traits = {}) {
     RNASegmentIO.group(groupId, traits)
   },
 
-  alias: function (newId) {
+  alias(newId) {
     RNASegmentIO.alias(newId)
   },
 
-  reset: function () {
+  reset() {
     RNASegmentIO.reset()
   },
 
-  flush: function () {
+  flush() {
     RNASegmentIO.flush()
   },
 
-  enable: function () {
+  enable() {
     RNASegmentIO.enable()
   },
 
-  disable: function () {
+  disable() {
     RNASegmentIO.disable()
-  }
+  },
 }
 
 export const AnalyticsConstants = {
