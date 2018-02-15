@@ -225,7 +225,13 @@
 		EE249F8E1F0BC5B200AC5C78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../../ios/**";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../../ios/**",
+					"$(SRCROOT)/../../react-native/React/**/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/../../node_modules/react-native/React",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -235,7 +241,13 @@
 		EE249F8F1F0BC5B200AC5C78 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/../../../ios/**";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../../ios/**",
+					"$(SRCROOT)/../../react-native/React/**/**",
+					"$(SRCROOT)/../../react-native/React/**",
+					"$(SRCROOT)/../../React/**",
+					"$(SRCROOT)/../../node_modules/react-native/React",
+				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;

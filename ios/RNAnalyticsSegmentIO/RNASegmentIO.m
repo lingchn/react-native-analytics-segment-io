@@ -6,7 +6,7 @@
 //
 
 #import <Analytics/SEGAnalytics.h>
-#import <React/RCTConvert.h>
+#import "RCTConvert.h"
 #import "RNASegmentIO.h"
 #import "RNAIntegrations.h"
 
@@ -25,55 +25,55 @@ RCT_EXPORT_METHOD(setup:(NSString *)key :(NSDictionary *)options)
     config.trackApplicationLifecycleEvents = [RCTConvert BOOL:options[@"trackApplicationLifecycleEvents"]];
     config.trackAttributionData = [RCTConvert BOOL:options[@"trackAttributionData"]];
     config.trackDeepLinks = [RCTConvert BOOL:options[@"trackDeepLinks"]];
-    
+
 #ifdef SEGTaplyticsIntegrationFactoryImported
     [config use:[SEGTaplyticsIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGAdjustIntegrationFactoryImported
     [config use:[SEGAdjustIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGGoogleAnalyticsIntegrationFactoryImported
     [config use:[SEGGoogleAnalyticsIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGComScoreIntegrationFactoryImported
     [config use:[SEGComScoreIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGAmplitudeIntegrationFactoryImported
     [config use:[SEGAmplitudeIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGFacebookAppEventsIntegrationFactoryImported
     [config use:[SEGFacebookAppEventsIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGMixpanelIntegrationFactoryImported
     [config use:[SEGMixpanelIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGLocalyticsIntegrationFactoryImported
     [config use:[SEGLocalyticsIntegrationFactory instance]];
-#endif 
-    
+#endif
+
 #ifdef SEGFlurryIntegrationFactoryImported
     [config use:[SEGFlurryIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGQuantcastIntegrationFactoryImported
     [config use:[SEGQuantcastIntegrationFactory instance]];
 #endif
-    
+
 #ifdef SEGCrittercismIntegrationFactoryImported
     [config use:[SEGCrittercismIntegrationFactory instance]];
-#endif 
-    
+#endif
+
 #ifdef SEGFirebaseIntegrationFactoryImported
     [config use:[SEGFirebaseIntegrationFactory instance]];
 #endif
-    
+
     [SEGAnalytics setupWithConfiguration:config];
 }
 
