@@ -7,6 +7,8 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
+import com.facebook.react.bridge.ReadableMapKeySetIterator;
+import com.facebook.react.bridge.ReadableType;
 import com.segment.analytics.Analytics;
 import com.segment.analytics.Properties;
 import com.segment.analytics.Traits;
@@ -178,12 +180,52 @@ public class SegmentModule extends ReactContextBaseJavaModule {
         }
     }
 
+    /**
+     * Transforms ReadableMap to java.util.Map object
+     * @param readableMap should not be null or empty
+     * @return Map object of readableMap
+     */
+    private Map<String, Object> toMap (ReadableMap readableMap) {
+        ReadableMapKeySetIterator iterator = readableMap.keySetIterator();
+
+        Map<String, Object> map = new HashMap<>();
+        while (iterator.hasNextKey()) {
+            String key = iterator.nextKey();
+            ReadableType readableType = readableMap.getType(key);
+
+            switch (readableType) {
+                case Null:
+                    map.put(key, null);
+                    break;
+                case Boolean:
+                    map.put(key, readableMap.getBoolean(key));
+                    break;
+                case Number:
+                    // Can be int or double.
+                    map.put(key, readableMap.getDouble(key));
+                    break;
+                case String:
+                    map.put(key, readableMap.getString(key));
+                    break;
+                case Map:
+                    map.put(key, this.toMap(readableMap.getMap(key)));
+                    break;
+                case Array:
+                    map.put(key, this.toArray(readableMap.getArray(key)));
+                    break;
+                default:
+                    throw new IllegalArgumentException("Could not convert object with key: " + key + ".");
+            }
+        }
+        return map;
+    }
+
     @ReactMethod
     public void identify(@Nullable String userId, @Nullable ReadableMap properties) {
         Traits traits = new Traits();
 
         if (properties != null) {
-            traits.putAll(properties.toHashMap());
+            traits.putAll(this.toMap(properties);
         }
 
         Analytics.with(getReactApplicationContext()).identify(userId, traits, null);
@@ -194,7 +236,7 @@ public class SegmentModule extends ReactContextBaseJavaModule {
         Properties segmentProperties = new Properties();
 
         if (properties != null) {
-            segmentProperties.putAll(properties.toHashMap());
+            segmentProperties.putAll(this.toMap(properties);
         }
 
         Analytics.with(getReactApplicationContext()).track(event, segmentProperties);
@@ -205,7 +247,7 @@ public class SegmentModule extends ReactContextBaseJavaModule {
         Properties segmentProperties = new Properties();
 
         if (properties != null) {
-            segmentProperties.putAll(properties.toHashMap());
+            segmentProperties.putAll(this.toMap(properties);
         }
 
         Analytics.with(getReactApplicationContext()).screen("", name, segmentProperties);
@@ -216,7 +258,7 @@ public class SegmentModule extends ReactContextBaseJavaModule {
         Traits traits = new Traits();
 
         if (properties != null) {
-            traits.putAll(properties.toHashMap());
+            traits.putAll(this.toMap(properties);
         }
 
         Analytics.with(getReactApplicationContext()).group(groupId, traits, null);
